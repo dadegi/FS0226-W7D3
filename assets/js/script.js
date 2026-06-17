@@ -14,6 +14,7 @@ console.log('secondo'); // 3
 // Gestione stato promise
 const semaforo = document.querySelector('#semaforo');
 const promiseState = document.querySelector('#promiseState');
+const spinner = document.querySelector('#spinner');
 
 function wait(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -30,4 +31,5 @@ wait(2000)
 	.then(() => wait(2000))
 	.then(() => mostra('🟡', 'attesa..'))
 	.then(() => wait(2000))
-	.then(() => mostra('🛑', 'Stop'));
+	.then(() => mostra('🛑', 'Stop'))
+	.then(() => spinner.classList.add('nascondi'));
