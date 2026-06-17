@@ -14,7 +14,7 @@ console.log('secondo'); // 3
 // Gestione stato promise
 const semaforo = document.querySelector('#semaforo');
 const promiseState = document.querySelector('#promiseState');
-const spinner = document.querySelector('#spinner');
+const spinner = document.querySelectorAll('.spinner');
 
 function wait(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -32,7 +32,7 @@ wait(2000)
 	.then(() => mostra('🟡', 'attesa..'))
 	.then(() => wait(2000))
 	.then(() => mostra('🛑', 'Stop'))
-	.then(() => spinner.classList.add('nascondi'));
+	.then(() => spinner[0].classList.add('nascondi'));
 
 // Primo esempio catch
 
@@ -51,3 +51,32 @@ function divide(num1, num2) {
 divide(7, 3).catch((err) => {
 	result.textContent = err.message;
 });
+
+// Esempio catch e finally
+
+const imgBox = document.querySelector('#imgBox');
+
+function loadImage(url) {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.onload = () => setTimeout(resolve(img), 2000);
+		img.onerror = () => reject(new Error('Immagine non caricata'));
+		img.src = url;
+	});
+}
+
+loadImage(
+	'https://images.pexels.com/photos/34145802/pexels-photo-34145802.jpeg',
+)
+	.then((img) => {
+		img.classList.add('img');
+		imgBox.appendChild(img);
+	})
+	.then(() => {
+		console.log('Immagine caricata');
+	})
+	.catch((err) => {
+		imgBox.textContent = err.message;
+		console.log(err.message);
+	})
+	.finally(() => spinner[1].classList.add('nascondi'));
