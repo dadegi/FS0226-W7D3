@@ -10,3 +10,24 @@ function callback() {
 }
 
 console.log('secondo'); // 3
+
+// Gestione stato promise
+const semaforo = document.querySelector('#semaforo');
+const promiseState = document.querySelector('#promiseState');
+
+function wait(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function mostra(light, text) {
+	semaforo.textContent = light;
+	promiseState.textContent = text;
+}
+
+mostra('🛑', 'Stop');
+wait(2000)
+	.then(() => mostra('🟢', 'Via!'))
+	.then(() => wait(2000))
+	.then(() => mostra('🟡', 'attesa..'))
+	.then(() => wait(2000))
+	.then(() => mostra('🛑', 'Stop'));
