@@ -80,3 +80,30 @@ loadImage(
 		console.log(err.message);
 	})
 	.finally(() => spinner[1].classList.add('nascondi'));
+
+// Primo esempio fetch
+const loadResource = document.querySelector('#loadResource');
+let myData = [];
+fetch('https://jsonplaceholder.typicode.com/users')
+	.then((response) => {
+		myData.push = response.json();
+	})
+	.then(() => {
+		console.log(myData);
+		loadResource.textContent = 'Base dati caricata';
+	})
+	.catch((err) => {
+		loadResource.textContent = err;
+		console.error(err);
+	});
+
+// Open Library
+
+let myBooks = [];
+
+fetch('https://openlibrary.org/search.json?q=test')
+	.then((response) => response.json())
+	.then((data) => {
+		myBooks = data.docs;
+		console.log(myBooks);
+	});
