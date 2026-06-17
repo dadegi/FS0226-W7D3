@@ -33,3 +33,21 @@ wait(2000)
 	.then(() => wait(2000))
 	.then(() => mostra('🛑', 'Stop'))
 	.then(() => spinner.classList.add('nascondi'));
+
+// Primo esempio catch
+
+const result = document.querySelector('#result');
+
+function divide(num1, num2) {
+	return new Promise((resolve, reject) => {
+		if (num1 === 0 || num2 === 0) {
+			reject(new Error('Divisione per zero!'));
+			return;
+		}
+		resolve((result.textContent = `Risultato: ${num1 / num2}`));
+	});
+}
+
+divide(7, 3).catch((err) => {
+	result.textContent = err.message;
+});
